@@ -1,0 +1,2 @@
+PATH=/home/katherine/galaxyNew/galaxy-Nov3/galaxy-1/dependencies/pythonirodsclient/0.5.0rc1/katherine/export/009d78076e38/venv/bin:$PATH; export PATH
+PYTHONPATH=/home/katherine/galaxyNew/galaxy-Nov3/galaxy-1/dependencies/pythonirodsclient/0.5.0rc1/katherine/export/009d78076e38/venv/lib/python2.7/site-packages:$PYTHONPATH; export PYTHONPATH

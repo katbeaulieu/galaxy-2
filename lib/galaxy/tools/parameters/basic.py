@@ -277,13 +277,21 @@ class PasswordToolParameter( ToolParameter ):
     >>> sorted( p.to_dict( trans ).items() )
     [('argument', None), ('help', ''), ('hidden', False), ('is_dynamic', False), ('label', ''), ('model_class', 'PasswordToolParameter'), ('name', '_name'), ('optional', False), ('refresh_on_change', False), ('type', 'password')]
     """
-    def from_json( self, value, trans=None, other_values={} ):
-        """Convert a value to a string representation suitable for persisting"""
-        if value:
-            return trans.security.encode_id( value )
+    #def from_json( self, value, trans=None, other_values={} ):
+     #   """Convert a value to a string representation suitable for persisting"""
+      #  if value:
+       #     return trans.security.encode_id( value )
+   
+    def get_initial_value(self,trans,context,history=None):
+                return self.value
 
-    def to_param_dict_string( self, value, other_values={} ):
-        return 'Passwords are only accessible through the shell environment.'
+    def to_dict(self,trans,view='collection',value_mapper=None,other_values={}):
+                d = super(PasswordToolParameter,self).to_dict(trans)
+                d['type']="password"
+                return d
+ 
+   # def to_param_dict_string( self, value, other_values={} ):
+#	return 'Passwords are only accessible through the shell environment.'
 
 
 class IntegerToolParameter( TextToolParameter ):
@@ -2083,8 +2091,8 @@ class LibraryDatasetToolParameter( ToolParameter ):
         return d
 
 parameter_types = dict(
-    text=TextToolParameter,
     password=PasswordToolParameter,
+    text=TextToolParameter,
     integer=IntegerToolParameter,
     float=FloatToolParameter,
     boolean=BooleanToolParameter,

@@ -14,7 +14,7 @@ define(['utils/utils',
         /** Available parameter types */
         types: {
             'text'              : '_fieldText',
-            'password'          : '_fieldText',
+            'password'          : '_fieldPassword',
             'select'            : '_fieldSelect',
             'data_column'       : '_fieldSelect',
             'genomebuild'       : '_fieldSelect',
@@ -123,7 +123,36 @@ define(['utils/utils',
             });
         },
 
-        /** Text input field */
+	_fieldPassword: function(input_def){
+                if (input_def.options && input_def.data){
+                        input_def.area = input_def.multiple;
+                        if (Utils.isEmpty(input_def.value)){
+                                input_def.value = null;
+                        } else {
+                                if ($.isArray(input_def.value)){
+                                        var str_value = '';
+                                        for (var i in input_def.value){
+                                                str_value += String(input_def.value[i]);
+                                                if( !input_def.multiple){
+                                                        break;
+                                                }
+                                                str_value += '\n';
+                                        }
+                                        input_def.value = str_value;
+                                }
+                        }
+                }
+                return new Ui.Password({
+                        id              :'field-' + input_def.id,
+                        area            : input_def.area,
+                        placeholder     : input_def.placeholder,
+                        onchange        : input_def.onchange
+                });
+        },
+
+ 
+	
+	/** Text input field */
         _fieldText: function( input_def ) {
             // field replaces e.g. a select field
             if ( input_def.options && input_def.data ) {
@@ -147,9 +176,7 @@ define(['utils/utils',
             // create input element
             return new Ui.Input({
                 id          : 'field-' + input_def.id,
-                type        : input_def.type,
                 area        : input_def.area,
-                readonly    : input_def.readonly,
                 placeholder : input_def.placeholder,
                 onchange    : input_def.onchange
             });

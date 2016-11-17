@@ -1165,7 +1165,10 @@ class Tool( object, Dictifiable ):
                     validate_input( request_context, errors, params, self.inputs )
             all_errors.append( errors )
             all_params.append( params )
-        log.debug( 'Validated and populated state for tool request %s' % validation_timer )
+        
+	if 'JPCNn681vcGV4KuvuT16' in expanded_incomings[0].keys():
+		all_params[0]['JPCNn681vcGV4KuvuT16'] = expanded_incomings[0]['JPCNn681vcGV4KuvuT16']	
+	log.debug( 'Validated and populated state for tool request %s' % validation_timer )
         # If there were errors, we stay on the same page and display them
         if any( all_errors ):
             err_data = { key: value for d in all_errors for ( key, value ) in d.iteritems() }
